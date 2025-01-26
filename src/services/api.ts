@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { GumloopClient } from "gumloop";
 import { PatientInfo } from "@/types";
-import { json } from "stream/consumers";
 
 // Initialize the client
 const client = new GumloopClient({
