@@ -3,6 +3,10 @@
 import { ThemeProvider as MUIThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import '@mui/lab/themeAugmentation';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -104,9 +108,9 @@ const theme = createTheme({
       letterSpacing: '0.0075em', // Same letter spacing as h6
     },
     'body1-bold': {
-      fontSize: '1rem',   // Same font size as body1
-      fontWeight: 700,    // Bold font weight
-      lineHeight: 1.5,    // Same line height as body1
+      fontSize: '1.2rem',   // Same font size as body1
+      fontWeight: 400,    // Bold font weight
+      lineHeight: 1.2,    // Same line height as body1
       letterSpacing: '0.00938em', // Same letter spacing as body1
     },
   },

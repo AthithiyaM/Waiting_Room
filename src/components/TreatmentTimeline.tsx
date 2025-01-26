@@ -25,11 +25,11 @@ export function TreatmentTimeline({ steps }: TreatmentTimelineProps) {
   const getStepColor = (status: TreatmentStep['status']) => {
     switch (status) {
       case 'completed':
-        return theme.palette.timeline.completed;
+        return theme.palette.timeline.complete;
       case 'in-progress':
-        return theme.palette.timeline.inProgress;
+        return theme.palette.timeline.current;
       default:
-        return theme.palette.timeline.notStarted;
+        return theme.palette.timeline.default;
     }
   };
 
@@ -41,16 +41,25 @@ export function TreatmentTimeline({ steps }: TreatmentTimelineProps) {
   ];
 
   return (
-    <Timeline sx={{ p: 0, m: 0 }}>
+    <Timeline sx={{ 
+      p: 0,    // Remove padding
+      m: 0,    // Remove margin
+      [`& .MuiTimelineItem-root:before`]: {
+        flex: 0,  // Remove left spacing
+        padding: 0
+      }
+    }}>
+      
       {steps.map((step, index) => (
         <TimelineItem key={step.id}>
           <TimelineSeparator>
             <TimelineDot sx={{ bgcolor: getStepColor(step.status) }} />
-            {index < steps.length - 1 && <TimelineConnector />}
+            {/* {index < steps.length - 1 && <TimelineConnector />} */}
+            <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body1" component="div">
+              <Typography variant="body1-bold" component="div">
                 {step.name}
               </Typography>
               {step.name === 'Investigation' && (
@@ -66,7 +75,7 @@ export function TreatmentTimeline({ steps }: TreatmentTimelineProps) {
                 </IconButton>
               )}
               {step.time && (
-                <Typography variant="body2" color="text.secondary" sx={{ ml: 'auto' }}>
+                <Typography variant="body1" color="text.secondary" sx={{ ml: 'auto' }}>
                   {step.time}
                 </Typography>
               )}
@@ -83,11 +92,11 @@ export function TreatmentTimeline({ steps }: TreatmentTimelineProps) {
                       </TimelineSeparator>
                       <TimelineContent>
                         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Typography variant="body2">
+                          <Typography variant="body1-bold">
                             {subStep.name}
                           </Typography>
                           {subStep.time && (
-                            <Typography variant="body2" color="text.secondary" sx={{ ml: 'auto' }}>
+                            <Typography variant="body1" color="text.secondary" sx={{ ml: 'auto' }}>
                               {subStep.time}
                             </Typography>
                           )}
