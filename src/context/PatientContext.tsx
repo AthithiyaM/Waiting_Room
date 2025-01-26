@@ -1,48 +1,49 @@
 "use client"
 import { createContext, useContext, ReactNode, useState } from 'react';
-import { PatientInfo, PatientStatus, TreatmentStep } from '@/types';
+import { PatientInfo, PhaseStatus } from '@/types';
 
 interface PatientContextType {
   patientInfo: PatientInfo | null;
-  updatePatientStatus: (status: PatientStatus) => void;
-  updateTreatmentStep: (stepId: string, status: TreatmentStep['status']) => void;
+  setPatientInfo: (info: PatientInfo) => void;
+  patientId: string;
+  setPatientId: (id: string) => void;
 }
 
 const PatientContext = createContext<PatientContextType | undefined>(undefined);
 
+const mapStatusToPhase = (status: string): PhaseStatus => {
+  switch (status.toLowerCase()) {
+    case 'complete':
+      return 'Complete';
+    case 'in progress':
+      return 'In Progress';
+    default:
+      return 'Pending';
+  }
+};
+
+export const mapInvestigationToStatus = (status: string): PhaseStatus => {
+  switch (status.toLowerCase()) {
+    case 'reported':
+      return 'Complete';
+    case 'pending':
+      return 'In Progress';
+    default:
+      return 'Pending';
+  }
+};
+
 export function PatientProvider({ children }: { children: ReactNode }) {
-  const [patientInfo, setPatientInfo] = useState<PatientInfo>({
-    id: '1',
-    placeNumber: '#14',
-    status: {
-      status: 'requires-non-urgent-care',
-      displayText: 'Requires less-urgent care'
-    },
-    treatmentSteps: [
-      { id: '1', name: 'Registration', status: 'completed', time: '3:00 PM' },
-      { id: '2', name: 'Triage Assessment', status: 'completed', time: '3:03 PM' },
-      { id: '3', name: 'Treatment', status: 'completed', time: '5:14 PM' },
-      { id: '4', name: 'Investigation', status: 'in-progress' },
-      { id: '5', name: 'Treatment', status: 'pending' },
-      { id: '6', name: 'Conclusion', status: 'pending' }
-    ]
-  });
-
-  const updatePatientStatus = (status: PatientStatus) => {
-    setPatientInfo(prev => ({ ...prev, status }));
-  };
-
-  const updateTreatmentStep = (stepId: string, status: TreatmentStep['status']) => {
-    setPatientInfo(prev => ({
-      ...prev,
-      treatmentSteps: prev.treatmentSteps.map(step =>
-        step.id === stepId ? { ...step, status } : step
-      )
-    }));
-  };
+  const [patientInfo, setPatientInfo] = useState<PatientInfo | null>(null);
+  const [patientId, setPatientId] = useState<string>('');
 
   return (
-    <PatientContext.Provider value={{ patientInfo, updatePatientStatus, updateTreatmentStep }}>
+    <PatientContext.Provider value={{ 
+      patientInfo, 
+      setPatientInfo, 
+      patientId, 
+      setPatientId 
+    }}>
       {children}
     </PatientContext.Provider>
   );

@@ -1,41 +1,85 @@
 'use client'
 
+import { useEffect } from 'react';
 import { Box, Container, Paper, Typography } from '@mui/material';
 import { StatusBadge } from '@/components/StatusBadge';
 import { TreatmentTimeline } from '@/components/TreatmentTimeline';
 import { NotificationCard } from '@/components/NotificationCard';
 import { ActivityCard } from '@/components/ActivityCard';
 import { usePatient } from '@/context/PatientContext';
+import { getTriageLabel } from '@/types';
+import { fetchPatientInfo } from '@/services/api';
+import { useSearchParams } from 'next/navigation'
 
 const activities = [
   {
     title: 'Talk',
-    imagePath: '/images/activities/talk.svg',
+    imagePath: '/images/exploreActivity.png',
     route: '/activities/talk'
   },
   {
     title: 'Explore',
-    imagePath: '/images/activities/explore.svg',
+    imagePath: '/images/exploreActivity.png',
     route: '/activities/explore'
   },
   {
     title: 'Games',
-    imagePath: '/images/activities/games.svg',
+    imagePath: '/images/games.png',
     route: '/activities/games'
   },
   {
     title: 'Meditate',
-    imagePath: '/images/activities/meditate.svg',
+    imagePath: '/images/meditateActivity.png',
     route: '/activities/meditate'
   }
 ];
 
 export default function DashboardPage() {
-  const { patientInfo } = usePatient();
+  const { patientInfo, setPatientInfo, patientId } = usePatient();
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const refreshPatientInfo = async () => {
+      try {
+        const data = await fetchPatientInfo(patientId);
+        console.log("IN DASHBOARD", data);
+        setPatientInfo(data);
+      } catch (error) {
+        console.error('Failed to fetch patient info:', error);
+      }
+    };
+
+    if (patientId) {
+      refreshPatientInfo();
+      const intervalId = setInterval(refreshPatientInfo, 30000);
+      return () => clearInterval(intervalId);
+    }
+  }, [setPatientInfo, patientId]);
 
   if (!patientInfo) {
     return null;
   }
+
+  // Get the current phase for notifications
+  // const getCurrentPhase = () => {
+  //   const phases = Object.entries(patientInfo.status_by_phase);
+  //   const currentPhase = phases.find(([_, status]) => status === 'In Progress');
+  //   return currentPhase ? currentPhase[0] : null;
+  // };
+
+  // const currentPhase = getCurrentPhase();
+  // const notificationItems = [];
+  
+  // if (currentPhase) {
+  //   notificationItems.push(`${currentPhase.replace(/_/g, ' ')} in progress`);
+  // }
+  
+  // if (patientInfo.investigations.labs === 'pending') {
+  //   notificationItems.push('Lab results pending');
+  // }
+  // if (patientInfo.investigations.imaging === 'pending') {
+  //   notificationItems.push('Imaging results pending');
+  // }
 
   return (
     <Container maxWidth="sm" sx={{ py: 3 }}>
@@ -43,27 +87,30 @@ export default function DashboardPage() {
         <Typography variant="h5-bold" component="h1" sx={{ mb: 2 }}>
           Good Afternoon
         </Typography>
-        <StatusBadge status={patientInfo.status} />
+        <StatusBadge 
+          status={{
+            status: 'requires-non-urgent-care',
+            displayText: `Requires ${getTriageLabel(Number(patientInfo.triage_category))} care`
+          }} 
+        />
       </Box>
 
       <Paper sx={{ p: 3, mb: 3 }}>
-        {/* Queue Information Section */}
         <Box sx={{ mb: 0 }}>
           <Typography variant="h6-bold" component="h2" sx={{ mb: 2 }}>
             Your Place
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
             <Typography variant="h4" component="div">
-              {patientInfo.placeNumber}
+              #{patientInfo.queue_position_global}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Estimated wait: 150 minutes
+              Estimated wait: {patientInfo.estimated_wait} minutes
             </Typography>
           </Box>
         </Box>
 
-        {/* Timeline Section */}
-        <TreatmentTimeline steps={patientInfo.treatmentSteps} />
+        <TreatmentTimeline patientInfo={patientInfo} />
       </Paper>
 
       {/* Notifications Section */}
@@ -75,9 +122,7 @@ export default function DashboardPage() {
           display: 'flex',
           overflowX: 'auto',
           pb: 2,
-          '::-webkit-scrollbar': {
-            display: 'none'
-          },
+          '::-webkit-scrollbar': { display: 'none' },
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
         }}>

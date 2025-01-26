@@ -15,7 +15,7 @@ export function ActivityCard({ title, imagePath, route }: ActivityCardProps) {
 
   return (
     <ButtonBase 
-      onClick={() => router.push(route)}
+    //   onClick={() => router.push(route)}
       sx={{ 
         borderRadius: 2,
         textAlign: 'left',

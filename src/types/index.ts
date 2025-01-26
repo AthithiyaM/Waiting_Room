@@ -16,10 +16,21 @@ export enum PatientPhase {
   DISCHARGED = 'discharged'
 }
 
-export enum InvestigationState {
-  ORDERED = 'ordered',
-  PENDING = 'pending',
-  REPORTED = 'reported'
+export type PhaseStatus = 'Complete' | 'In Progress' | 'Pending';
+export type InvestigationState = 'ordered' | 'pending' | 'reported';
+
+export interface StatusByPhase {
+  registered: PhaseStatus;
+  triaged: PhaseStatus;
+  investigations_pending: PhaseStatus;
+  treatment: PhaseStatus;
+  admitted: PhaseStatus;
+  discharged: PhaseStatus;
+}
+
+export interface Investigations {
+  imaging: InvestigationState;
+  labs: InvestigationState;
 }
 
 // Helper type for investigations
@@ -81,16 +92,34 @@ export const getTriageLabel = (category: TriageCategory): string => {
   return labels[category];
 };
 
+export interface PatientInfo {
+  id: string;
+  triage_category: number;
+  queue_position_global: number;
+  estimated_wait: number;
+  status_by_phase: {
+    registered: string;
+    triaged: string;
+    investigations_pending: string;
+    treatment: string;
+    admitted: string;
+    discharged: string;
+  };
+  investigations: {
+    imaging: string;
+    labs: string;
+  };
+}
+
 export interface TreatmentStep {
   id: string;
   name: string;
-  status: 'completed' | 'in-progress' | 'pending';
+  status: PhaseStatus;
   time?: string;
-}
-
-export interface PatientInfo {
-  id: string;
-  placeNumber: string;
-  status: PatientStatus;
-  treatmentSteps: TreatmentStep[];
+  subSteps?: {
+    id: string;
+    name: string;
+    status: InvestigationState;
+    time?: string;
+  }[];
 } 
