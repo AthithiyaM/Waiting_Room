@@ -7,31 +7,69 @@ import '@mui/lab/themeAugmentation';
 declare module '@mui/material/styles' {
   interface Palette {
     triage: {
+      resuscitation: string;
       emergent: string;
       urgent: string;
-      lessUrgent: string;
-      nonUrgent: string;
+      less_urgent: string;
+      non_urgent: string;
     };
     timeline: {
-      completed: string;
-      inProgress: string;
-      notStarted: string;
+      complete: string;
+      current: string;
+      default: string;
     };
   }
   interface PaletteOptions {
     triage: {
+      resuscitation: string;
       emergent: string;
       urgent: string;
-      lessUrgent: string;
-      nonUrgent: string;
+      less_urgent: string;
+      non_urgent: string;
     };
     timeline: {
-      completed: string;
-      inProgress: string;
-      notStarted: string;
+      complete: string;
+      current: string;
+      default: string;
     };
   }
-}
+  interface TypographyVariants {
+    'h5-bold': React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    'h5-bold'?: React.CSSProperties;
+  }
+  interface TypographyVariants {
+    'h6-bold': React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    'h6-bold'?: React.CSSProperties;
+  }
+
+  interface TypographyVariants {
+    'body1-bold': React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    'body1-bold'?: React.CSSProperties;
+  }
+
+  }
+  declare module '@mui/material/Typography' {
+    interface TypographyPropsVariantOverrides {
+      'h6-bold': true;
+    }
+
+    interface TypographyPropsVariantOverrides {
+      'h5-bold': true;
+    }
+
+    interface TypographyPropsVariantOverrides {
+      'body1-bold': true;
+    }
+  }
 
 const theme = createTheme({
   palette: {
@@ -39,17 +77,40 @@ const theme = createTheme({
       default: '#EEEEF1',
     },
     triage: {
-      emergent: '#FF0000',
+      resuscitation: '#2196F3',
+      emergent: '#F45B69',
       urgent: '#FFBD6B',
-      lessUrgent: '#4AA451',
-      nonUrgent: '#FFFFFF',
+      less_urgent: '#4CAF50',
+      non_urgent: '#FFFFFF',
     },
     timeline: {
-      completed: '#4AA451',
-      inProgress: '#FFBD6B',
-      notStarted: '#A5D5F7',
+      complete: '#4CAF50',
+      current: '#FFBD6B',
+      default: '#A5D5F7',
     },
   },
+  typography:{
+    fontFamily: "'Roboto', 'Arial', sans-serif",
+    'h5-bold': {
+      fontSize: '1.5rem', // Same font size as h5
+      fontWeight: 700,    // Bold font weight
+      lineHeight: 1.334,  // Same line height as h5
+      letterSpacing: '0em', // Same letter spacing as h5
+    },
+    'h6-bold': {
+      fontSize: '1.25rem', // Same font size as h6
+      fontWeight: 700,     // Bold font weight
+      lineHeight: 1.6,     // Same line height as h6
+      letterSpacing: '0.0075em', // Same letter spacing as h6
+    },
+    'body1-bold': {
+      fontSize: '1rem',   // Same font size as body1
+      fontWeight: 700,    // Bold font weight
+      lineHeight: 1.5,    // Same line height as body1
+      letterSpacing: '0.00938em', // Same letter spacing as body1
+    },
+  },
+
   components: {
     MuiPaper: {
       defaultProps: {
