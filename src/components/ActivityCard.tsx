@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import { Paper, Typography, Box, ButtonBase } from '@mui/material';

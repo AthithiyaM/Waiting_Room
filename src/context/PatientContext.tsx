@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { createContext, useContext, ReactNode, useState } from 'react';
 import { PatientInfo, PhaseStatus } from '@/types';
