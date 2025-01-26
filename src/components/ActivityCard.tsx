@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
-import { Paper, Typography, Box, ButtonBase } from '@mui/material';
+import { Paper, Typography, Box } from '@mui/material';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 interface ActivityCardProps {
   title: string;
@@ -12,15 +11,14 @@ interface ActivityCardProps {
 }
 
 export function ActivityCard({ title, imagePath, route }: ActivityCardProps) {
-  const router = useRouter();
-
   return (
-    <ButtonBase 
-    //   onClick={() => router.push(route)}
-      sx={{ 
-        borderRadius: 2,
-        textAlign: 'left',
-        display: 'block'
+    <a 
+      href={route}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ 
+        textDecoration: 'none',
+        color: 'inherit'
       }}
     >
       <Paper sx={{ 
@@ -45,6 +43,6 @@ export function ActivityCard({ title, imagePath, route }: ActivityCardProps) {
           {title}
         </Typography>
       </Paper>
-    </ButtonBase>
+    </a>
   );
 } 

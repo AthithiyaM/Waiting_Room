@@ -14,23 +14,23 @@ import { fetchPatientInfo } from '@/services/api';
 const activities = [
   {
     title: 'Talk',
-    imagePath: '/images/exploreActivity.png',
-    route: '/activities/talk'
+    imagePath: '/images/TalkActivity.png',
+    route: 'https://parade.com/969981/parade/conversation-starters/'
   },
   {
     title: 'Explore',
     imagePath: '/images/exploreActivity.png',
-    route: '/activities/explore'
+    route: 'https://www.figma.com/proto/NcRFm3739bA5EgCXcq3pPe/McHacks12-Design-File?node-id=20-67'
   },
   {
     title: 'Games',
     imagePath: '/images/games.png',
-    route: '/activities/games'
+    route: 'https://trex-runner.com/'
   },
   {
     title: 'Meditate',
     imagePath: '/images/meditateActivity.png',
-    route: '/activities/meditate'
+    route: 'https://g.co/kgs/D7EAHJa'
   }
 ];
 
