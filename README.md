@@ -13,7 +13,7 @@ with all the necessary info we need so our web app can access it through Gumloop
 You can [find our Gumloop Webflow here](https://www.gumloop.com/pipeline?workbook_id=oiBdSZrKxnr7V1JjdX5nAX)!
 
 ## Interface Design
-
+We designed the interface using Figma, leveraging the Material UI (MUI) react library for a modern and intuitive user experience.
 
 ## How It's Built
 We built our web app using React and Next.js for a seamless and dynamic user experience, 
