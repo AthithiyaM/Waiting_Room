@@ -10,7 +10,6 @@ import { ActivityCard } from '@/components/ActivityCard';
 import { usePatient } from '@/context/PatientContext';
 import { getTriageLabel } from '@/types';
 import { fetchPatientInfo } from '@/services/api';
-import { useSearchParams } from 'next/navigation'
 
 const activities = [
   {
@@ -37,7 +36,6 @@ const activities = [
 
 export default function DashboardPage() {
   const { patientInfo, setPatientInfo, patientId } = usePatient();
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     const refreshPatientInfo = async () => {
