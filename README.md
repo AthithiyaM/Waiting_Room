@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Welcome to the Waiting Room!
+Everyone has had bad ER experiences. This web app empowers emergency room patients by providing real-time updates on their journey through the ER! 
+Patients can enter their ID to access personalized information about their current phase of care, the status of requested investigations, and more. 
+Beyond updates, the app offers interactive activities like hospital exploration and guided meditation to enhance the patient experience during their stay.
 
-## Getting Started
+## Data Handling
+To retrieve and transform data from the IFEM award API we use Gumloop! <br>
 
-First, run the development server:
+We use Gumloop to make various requests to the IFEM API to retrieve patient data 
+and general wait time statistics. We then transform this data and create a simple JSON object 
+with all the necessary info we need so our web app can access it through Gumloop's API.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+You can [find our Gumloop Webflow here](https://www.gumloop.com/pipeline?workbook_id=oiBdSZrKxnr7V1JjdX5nAX)!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Interface Design
+We designed the interface using Figma, leveraging the Material UI (MUI) react library for a modern and intuitive user experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How It's Built
+We built our web app using React and Next.js for a seamless and dynamic user experience, 
+leveraging Vercel for efficient and reliable deployment. The app is hosted on our custom domain [waiting-room.biz](waiting-room.biz)
+through GoDaddy, ensuring a professional and accessible online presence.
